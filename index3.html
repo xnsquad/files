@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>XNSQUAD — Файлы</title>
+<meta name="description" content="Файлы XNSQUAD.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+
+  :root{
+    --bg:#0a0a14;
+    --bg-soft:#10101c;
+    --card:#15152a;
+    --border:rgba(196,181,253,.14);
+    --border-hi:rgba(196,181,253,.55);
+    --text:#f1f0f7;
+    --muted:#a5a3bd;
+    --p1:#a855f7;
+    --p2:#c4b5fd;
+    --p3:#e9d5ff;
+    --grad:linear-gradient(135deg,#a855f7 0%,#c4b5fd 50%,#e9d5ff 100%);
+    --radius:18px;
+  }
+
+  html{scroll-behavior:smooth}
+
+  body{
+    font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
+    line-height:1.6;
+    min-height:100svh;
+  }
+
+  h1,h2,h3,.logo,.btn{font-family:'Space Grotesk',system-ui,sans-serif}
+
+  ::selection{background:rgba(196,181,253,.35);color:#fff}
+
+  ::-webkit-scrollbar{width:10px}
+  ::-webkit-scrollbar-track{background:#0a0a14}
+  ::-webkit-scrollbar-thumb{background:linear-gradient(#a855f7,#e9d5ff);border-radius:10px;border:3px solid #0a0a14}
+
+  .nav{
+    position:fixed;top:0;left:0;right:0;z-index:200;
+    padding:20px 0;transition:all .35s ease;
+  }
+  .nav.scrolled{
+    padding:12px 0;
+    background:rgba(10,10,20,.85);
+    backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+    border-bottom:1px solid var(--border);
+  }
+  .nav-inner{
+    max-width:1240px;margin:0 auto;padding:0 24px;
+    display:flex;align-items:center;justify-content:space-between;gap:20px;
+  }
+  .logo{
+    font-size:20px;font-weight:700;letter-spacing:.06em;
+    text-decoration:none;white-space:nowrap;
+    background:linear-gradient(135deg,#a855f7 0%,#c4b5fd 50%,#e9d5ff 100%);
+    -webkit-background-clip:text;background-clip:text;
+    -webkit-text-fill-color:transparent;
+  }
+  .logo span{
+    background:linear-gradient(135deg,#c4b5fd,#e9d5ff);
+    -webkit-background-clip:text;background-clip:text;
+    -webkit-text-fill-color:transparent;
+  }
+  .nav-links{display:flex;align-items:center;gap:34px}
+  .nav-links a{
+    position:relative;color:var(--muted);text-decoration:none;
+    font-size:14.5px;font-weight:500;letter-spacing:.02em;transition:color .25s;
+  }
+  .nav-links a::after{
+    content:'';position:absolute;left:0;bottom:-6px;height:2px;width:0;
+    background:var(--grad);border-radius:2px;transition:width .3s ease;
+  }
+  .nav-links a:hover{color:#fff}
+  .nav-links a:hover::after{width:100%}
+
+  .burger{
+    display:none;background:none;border:0;cursor:pointer;
+    width:40px;height:40px;flex-direction:column;justify-content:center;
+    align-items:center;gap:5px;border-radius:10px;
+  }
+  .burger span{
+    display:block;width:22px;height:2px;background:#fff;border-radius:2px;
+    transition:.3s;
+  }
+  .burger.active span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+  .burger.active span:nth-child(2){opacity:0}
+  .burger.active span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+
+  .page{
+    position:relative;
+    padding:160px 24px 80px;
+    min-height:100svh;
+    overflow:hidden;
+  }
+  .grid-bg{
+    position:absolute;inset:0;
+    background-image:
+      linear-gradient(rgba(196,181,253,.07) 1px,transparent 1px),
+      linear-gradient(90deg,rgba(196,181,253,.07) 1px,transparent 1px);
+    background-size:64px 64px;
+    -webkit-mask-image:radial-gradient(ellipse 70% 60% at 50% 30%,#000 10%,transparent 78%);
+    mask-image:radial-gradient(ellipse 70% 60% at 50% 30%,#000 10%,transparent 78%);
+    animation:gridDrift 22s linear infinite;
+    pointer-events:none;
+  }
+  @keyframes gridDrift{
+    from{background-position:0 0,0 0}
+    to{background-position:64px 64px,64px 64px}
+  }
+  .glow{
+    position:absolute;border-radius:50%;filter:blur(120px);
+    opacity:.45;pointer-events:none;
+  }
+  .glow.g1{width:520px;height:520px;background:#7c3aed;top:-140px;left:-120px;animation:float1 14s ease-in-out infinite}
+  .glow.g2{width:460px;height:460px;background:#a855f7;bottom:-160px;right:-100px;animation:float2 17s ease-in-out infinite}
+  @keyframes float1{50%{transform:translate(70px,60px) scale(1.12)}}
+  @keyframes float2{50%{transform:translate(-60px,-50px) scale(1.08)}}
+
+  .page-inner{position:relative;z-index:2;max-width:1100px;margin:0 auto;text-align:center}
+
+  .page-title{
+    font-size:clamp(2.6rem,10vw,6rem);
+    font-weight:700;line-height:.95;letter-spacing:-.04em;
+    background:linear-gradient(100deg,#7c3aed 0%,#a855f7 25%,#c4b5fd 50%,#d8b4fe 75%,#e9d5ff 100%);
+    background-size:250% 100%;
+    -webkit-background-clip:text;background-clip:text;
+    -webkit-text-fill-color:transparent;
+    animation:shine 7s ease-in-out infinite;
+    filter:drop-shadow(0 0 60px rgba(168,85,247,.55));
+    margin-bottom:20px;
+  }
+  @keyframes shine{
+    0%,100%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+  }
+
+  .page-sub{
+    color:#c4b5fd;
+    font-size:16.5px;
+    margin-bottom:52px;
+    font-weight:500;
+  }
+  .page-sub b{
+    color:#e9d5ff;
+    font-weight:700;
+  }
+
+  .files-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:22px;
+    text-align:left;
+  }
+
+  .file-card{
+    position:relative;
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+    padding:28px 24px;
+    border-radius:16px;
+    border:1px solid var(--border);
+    background:var(--card);
+    text-decoration:none;
+    color:var(--text);
+    overflow:hidden;
+    transition:transform .35s cubic-bezier(.2,.8,.2,1),border-color .3s,box-shadow .3s,background .3s;
+  }
+  .file-card::before{
+    content:'';position:absolute;inset:0;
+    background:radial-gradient(circle at 50% 0%,rgba(196,181,253,.20),transparent 65%);
+    opacity:0;transition:opacity .35s;pointer-events:none;
+  }
+  .file-card:hover{
+    transform:translateY(-6px);
+    border-color:var(--border-hi);
+    background:rgba(168,85,247,.08);
+    box-shadow:0 20px 50px -20px rgba(168,85,247,.75);
+  }
+  .file-card:hover::before{opacity:1}
+
+  .file-card > *{position:relative;z-index:2}
+
+  .file-name{
+    font-family:'Space Grotesk',system-ui,sans-serif;
+    font-size:18px;font-weight:700;letter-spacing:-.01em;
+    background:linear-gradient(135deg,#c4b5fd 0%,#d8b4fe 50%,#e9d5ff 100%);
+    -webkit-background-clip:text;background-clip:text;
+    -webkit-text-fill-color:transparent;
+  }
+
+  .file-desc{
+    font-size:14px;color:var(--muted);
+    line-height:1.5;
+  }
+
+  .file-pass{
+    margin-top:auto;
+    padding-top:14px;
+    border-top:1px solid rgba(196,181,253,.12);
+    font-size:13px;
+    color:#a5a3bd;
+    display:flex;align-items:center;gap:8px;
+    flex-wrap:wrap;
+  }
+  .file-pass span{
+    padding:3px 10px;
+    border-radius:6px;
+    background:rgba(168,85,247,.16);
+    border:1px solid rgba(196,181,253,.28);
+    color:#e9d5ff;
+    font-family:'Space Grotesk',sans-serif;
+    font-weight:600;
+    letter-spacing:.02em;
+    font-size:12.5px;
+  }
+
+  .back-btn{
+    display:inline-flex;align-items:center;justify-content:center;gap:10px;
+    padding:15px 34px;border-radius:999px;
+    font-size:15px;font-weight:600;letter-spacing:.02em;
+    text-decoration:none;cursor:pointer;
+    background:rgba(196,181,253,.05);
+    color:#e9d5ff;
+    border:1px solid rgba(196,181,253,.35);
+    transition:transform .25s ease,box-shadow .3s ease,background .3s,border-color .3s;
+    font-family:'Space Grotesk',sans-serif;
+    margin-top:56px;
+  }
+  .back-btn:hover{
+    transform:translateY(-3px);
+    background:rgba(196,181,253,.14);
+    border-color:rgba(196,181,253,.7);
+    box-shadow:0 14px 40px -14px rgba(168,85,247,.8);
+  }
+
+  .reveal{
+    opacity:0;transform:translateY(34px);
+    transition:opacity .8s cubic-bezier(.2,.8,.2,1),transform .8s cubic-bezier(.2,.8,.2,1);
+  }
+  .reveal.visible{opacity:1;transform:none}
+
+  @media (max-width:900px){
+    .files-grid{grid-template-columns:repeat(2,1fr)}
+  }
+
+  @media (max-width:768px){
+    .burger{display:flex}
+    .nav-links{
+      position:fixed;inset:0 0 0 auto;width:min(78vw,320px);
+      flex-direction:column;justify-content:center;gap:34px;
+      background:rgba(16,16,28,.98);
+      backdrop-filter:blur(20px);
+      border-left:1px solid var(--border);
+      transform:translateX(100%);transition:transform .4s cubic-bezier(.2,.8,.2,1);
+      z-index:150;
+    }
+    .nav-links.open{transform:translateX(0)}
+    .nav-links a{font-size:20px;color:#fff}
+    .burger{z-index:200}
+    .page{padding:130px 20px 60px}
+  }
+
+  @media (max-width:520px){
+    .files-grid{grid-template-columns:1fr}
+  }
+
+  @media (prefers-reduced-motion:reduce){
+    *,*::before,*::after{animation-duration:.001ms!important;transition-duration:.001ms!important}
+    .reveal{opacity:1;transform:none}
+  }
+</style>
+</head>
+<body>
+
+<header class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="https://xnsquad.github.io/site/" class="logo">XN<span>SQUAD</span></a>
+    <nav class="nav-links" id="navLinks">
+      <a href="https://xnsquad.github.io/site/#admins">Админы</a>
+      <a href="https://xnsquad.github.io/site/#join">Вступить</a>
+      <a href="files.html">Файлы</a>
+    </nav>
+    <button class="burger" id="burger" aria-label="Открыть меню">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<main class="page">
+  <div class="grid-bg"></div>
+  <div class="glow g1"></div>
+  <div class="glow g2"></div>
+
+  <div class="page-inner">
+    <h1 class="page-title">Файлы</h1>
+    <p class="page-sub">Пароли от раток: <b>Xnsquad</b></p>
+
+    <div class="files-grid">
+
+      <a href="https://download1649.mediafire.com/60xdmnaa1axgNT8acu_i2jl8LwuCFKDJEhfOVYXBwGw9E4LrTe_aYSxagiN4rgcEYcQQdIuS0MXJpW5RFFFJToyH_3AcJ50uM5euDdxoaFPf7EZ0s1W2jMqRmkyj77hoM6JmwsJjV2PG5QG_BHzVx_uw4IOATArm7rpT3V34xN4GMZzkMw/iued6tav31myjeg/Liberium+Screen+Rat.rar" target="_blank" rel="noopener" class="file-card reveal">
+        <div class="file-name">Liberium Rat</div>
+        <div class="file-desc">Хорошая ратка от @soulpublica</div>
+        <div class="file-pass">Пароль: <span>Xnsquad</span></div>
+      </a>
+
+      <a href="https://download941.mediafire.com/37l4fhrjq1wgabnkxPyoo1waHuMO7JQ7txNa9t0-C8tQ89XhkW9XtSYQcB5umClPBTFjoL7PG4FSDVJXyEnWk2kHHc12TZPtPF2oMYeyFfBbaX4tmVpCaDM78wcr-WkUfgHaigvZgDWSlH0eEGJTSTpFGPS2a2XWiGwRwJ6xGDn9uOJfNA/y4z95dpvvcwr4ao/pidorat+1.2.rar" target="_blank" rel="noopener" class="file-card reveal">
+        <div class="file-name">PidoRat 1.2</div>
+        <div class="file-desc">Нечего сказать</div>
+        <div class="file-pass">Пароль: <span>Xnsquad</span></div>
+      </a>
+
+      <a href="https://download1581.mediafire.com/jjtza6zsqfdgTt3OzSXFAW_IR8ZxlbsxgPsbQjOOWiKKG3LCij1_VwIYVj6y7gH6Q_NctEyqNA02-k2g5pWV5HFDnjQS6lr6W0B5Vy6_xjKMq1kDF0moSjSeIpF1hkqQ3gHyEPEV2pNKYE8ijKjUSdWRHGLpP_Ck_mz611puf3VKLuQo-g/tktg0ns6fwaaz82/Gomorat.rar" target="_blank" rel="noopener" class="file-card reveal">
+        <div class="file-name">GomoRat 2.0</div>
+        <div class="file-desc">Ратка хорошая от plikan</div>
+        <div class="file-pass">Пароль: <span>Xnsquad</span></div>
+      </a>
+
+      <a href="https://download843.mediafire.com/1xnh7jrqo7sg8OR16lCmzi7CAQNSAV2PQf3IopuTi-0ZZPU9Swla0uWb__ak7oNICTjtsHB_OCO9JK84ZZvD-ecmuAlXXLZg8ERNNzCZFEbKkIRQDCpFpxKGC7fO2li7SALXbhDSiYpaf-DfbPBMg-JZKUjeUSeAlQmyJvdGcPNlHNnHKg/ku47gj56d6j6f6w/XWorm+6.5.rar" target="_blank" rel="noopener" class="file-card reveal">
+        <div class="file-name">Xworm 6.5</div>
+        <div class="file-desc">Честно xworm Говно</div>
+        <div class="file-pass">Пароль: <span>Xnsquad</span></div>
+      </a>
+
+    </div>
+
+    <a href="https://xnsquad.github.io/site/" class="back-btn">← На главную</a>
+  </div>
+</main>
+
+<script>
+  const nav = document.getElementById('nav');
+  const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > 40);
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive: true });
+
+  const burger = document.getElementById('burger');
+  const navLinks = document.getElementById('navLinks');
+
+  burger.addEventListener('click', () => {
+    burger.classList.toggle('active');
+    navLinks.classList.toggle('open');
+    document.body.style.overflow = navLinks.classList.contains('open') ? 'hidden' : '';
+  });
+
+  navLinks.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      burger.classList.remove('active');
+      navLinks.classList.remove('open');
+      document.body.style.overflow = '';
+    });
+  });
+
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 90);
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
+
+  document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+</script>
+
+</body>
+</html>
